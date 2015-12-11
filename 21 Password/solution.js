@@ -42,11 +42,33 @@ function hasTwoSameLetters(input) {
     return el.charCodeAt(0) - 97;
   });
 
-  for(var i = 1; i < charCodes.length; i++) {
-    if(charCodes[i] - charCodes[i - 1] === 0) {
-      return true;
-    }
-  }
+  var charDifferences = charCodes.slice(1, charCodes.length).map(function(el, index) {
+    return el - charCodes[index];
+  });
 
-  return false;
+  var seenZeroIndex = null;
+  var result = false;
+
+  charDifferences.forEach(function(el, index) {
+    if(seenZeroIndex !== null && el === 0 && index > seenZeroIndex + 1) {
+      result = true;
+      return;
+    } else if(el === 0) {
+      seenZeroIndex = index;
+    }
+  })
+
+  return result;
 }
+
+function isValidPassword(input) {
+  return hasTwoSameLetters(input) && hasThreeIncreasingLetters(input);
+}
+
+// console.log(hasTwoSameLetters("aaabcdef"))
+
+while(!isValidPassword(input)) {
+  input = incrementPassword(input);
+}
+
+console.log(input)
