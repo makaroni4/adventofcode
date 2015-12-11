@@ -15,12 +15,38 @@ function incrementPassword(input) {
     index--;
   }
 
-  input = input.replaceAt(index, alphabet[input[index].charCodeAt(0) - 96]);
+  var nextChar = alphabet[input[index].charCodeAt(0) - 96];
+  if(nextChar === "i" || nextChar === "o" || nextChar === "l") {
+    nextChar = alphabet[input[index].charCodeAt(0) - 95];
+  }
 
-  return input;
+  return input.replaceAt(index, nextChar);
 }
 
-for (var i = 0; i < 100; i++) {
-  input = incrementPassword(input);
-  console.log(input);
+function hasThreeIncreasingLetters(input) {
+  var charCodes = input.split("").map(function(el) {
+    return el.charCodeAt(0) - 97;
+  });
+
+  for(var i = 2; i < charCodes.length; i++) {
+    if(charCodes[i] - charCodes[i - 1] === 1 && charCodes[i] - charCodes[i - 2] === 2) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function hasTwoSameLetters(input) {
+  var charCodes = input.split("").map(function(el) {
+    return el.charCodeAt(0) - 97;
+  });
+
+  for(var i = 1; i < charCodes.length; i++) {
+    if(charCodes[i] - charCodes[i - 1] === 0) {
+      return true;
+    }
+  }
+
+  return false;
 }
