@@ -1,10 +1,37 @@
 var fs = require("fs");
-var input = fs.readFileSync("test_input").toString().trim();
+var input = fs.readFileSync("input").toString().trim();
 
 var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 
 String.prototype.replaceAt = function(index, character) {
   return this.substr(0, index) + character + this.substr(index+character.length);
+}
+
+Array.prototype.findIndex = function(callback) {
+  for(var i = 0; i < this.length; i++) {
+    if(callback(this[i])) {
+      return i;
+    }
+  }
+
+  return -1;
+}
+
+function removeBlackListLetters(input) {
+  var firstBlacklistLetterIndex = input.split("").findIndex(function(el) {
+    return el === "i" || el === "o" || el === "l";
+  })
+
+  if(firstBlacklistLetterIndex + 1) {
+    var newLetter = alphabet[input[firstBlacklistLetterIndex].charCodeAt(0) - 96];
+    input = input.replaceAt(firstBlacklistLetterIndex, newLetter);
+
+    for(i = firstBlacklistLetterIndex + 1; i < input.length; i++) {
+      input = input.replaceAt(i, "a");
+    }
+  }
+
+  return input;
 }
 
 function incrementPassword(input) {
@@ -16,9 +43,6 @@ function incrementPassword(input) {
   }
 
   var nextChar = alphabet[input[index].charCodeAt(0) - 96];
-  if(nextChar === "i" || nextChar === "o" || nextChar === "l") {
-    nextChar = alphabet[input[index].charCodeAt(0) - 95];
-  }
 
   return input.replaceAt(index, nextChar);
 }
@@ -65,7 +89,7 @@ function isValidPassword(input) {
   return hasTwoSameLetters(input) && hasThreeIncreasingLetters(input);
 }
 
-// console.log(hasTwoSameLetters("aaabcdef"))
+input = removeBlackListLetters(input);
 
 while(!isValidPassword(input)) {
   input = incrementPassword(input);

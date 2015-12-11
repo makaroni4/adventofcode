@@ -19,3 +19,5 @@ The next password after ghijklmn is ghjaabcc, because you eventually skip all th
 Given Santa's current password (your puzzle input), what should his next password be?
 
 Your puzzle input is vzbxkghb.
+
+Answer: vzbxxyzz
