@@ -97,7 +97,7 @@ function calculateMixScore(mix, ingredients) {
 
 var ingredients = Object.keys(ingredientProperties);
 var totalSpoons = 100;
-
+var allowedCalories = 500;
 var mixMaxScore = 0;
 var mixMaxConfig = []
 
@@ -105,7 +105,7 @@ combinations(ingredients).forEach(function (ingredientsCombination) {
   var possibleMixes = multichoose(totalSpoons, ingredientsCombination.length);
 
   possibleMixes.forEach(function (possibleMix) {
-    if (countCalories(possibleMix, ingredientsCombination) === 500) {
+    if (countCalories(possibleMix, ingredientsCombination) === allowedCalories) {
       var mixScore = calculateMixScore(possibleMix, ingredientsCombination);
 
       if(mixScore > mixMaxScore) {
