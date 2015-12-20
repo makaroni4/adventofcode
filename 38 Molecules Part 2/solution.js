@@ -1,3 +1,6 @@
+// Reddit about internal logic of the input:
+// https://www.reddit.com/r/adventofcode/comments/3xflz8/day_19_solutions/cy4etju
+
 var fs = require("fs");
 var input = fs.readFileSync("input").toString().trim().split("\n\n");
     rawReplacements = input[0],
@@ -16,9 +19,9 @@ rawReplacements.split("\n").forEach(function (replacement) {
 var replacementsIterations = {};
 
 function iterate(startingMolecule, iteration) {
-  console.log(replacementsIterations["e"])
-
   if(startingMolecule === "e") {
+    console.log(replacementsIterations["e"])
+
     if(replacementsIterations["e"] > iteration) {
       replacementsIterations["e"] = iteration;
     }
@@ -35,7 +38,7 @@ function iterate(startingMolecule, iteration) {
       var prevMolecule = startingMolecule.replace(rewerseReplacement, rewerseReplacements[rewerseReplacement]);
 
       if(replacementsIterations[prevMolecule]) {
-        if(replacementsIterations[prevMolecule] > iteration) {
+        if(replacementsIterations[prevMolecule] >= iteration) {
           return false;
         } else {
           replacementsIterations[prevMolecule] = iteration;
