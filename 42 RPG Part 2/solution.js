@@ -47,22 +47,35 @@ function isPlayerWins(player, boss) {
   return playerSteps > bossSteps ? true : false;
 }
 
-// var player = {
-//   hit_points: 100,
-//   damage: 7,
-//   armor: 4
-// };
+function isPlayerLoose(player, boss) {
+  var bossSteps = Math.floor(boss.hit_points / ((player.damage - boss.armor) > 0 ? (player.damage - boss.armor) : 1));
+  var playerSteps = Math.floor(player.hit_points / ((boss.damage - player.armor) > 0 ? (boss.damage - player.armor) : 1));
 
-// var boss = {
-//   hit_points: 103,
-//   damage: 9,
-//   armor: 2
-// };
+  if(bossSteps === playerSteps) {
+    if(player.hit_points % (boss.damage - player.armor) === 0) {
+      return true;
+    }
+  }
 
-// console.log(isPlayerWins(player, boss))
+  return bossSteps > playerSteps ? true : false;
+}
+
+var player = {
+  hit_points: 100,
+  damage: 5,
+  armor: 6
+};
+
+var boss = {
+  hit_points: 103,
+  damage: 9,
+  armor: 2
+};
+
+console.log(isPlayerLoose(player, boss))
 
 var costs = [];
-var WRONG_MIN_COST = 111;
+var WRONG_MIN_COST = 213;
 // weapon
 shop.weapons.forEach(function (weapon) {
   var player = {
@@ -71,7 +84,7 @@ shop.weapons.forEach(function (weapon) {
     damage: weapon.damage
   }
 
-  if(isPlayerWins(player, boss)) {
+  if(isPlayerLoose(player, boss)) {
     var totalCost = weapon.cost;
     costs.push(totalCost);
   }
@@ -86,7 +99,7 @@ shop.weapons.forEach(function (weapon) {
       damage: weapon.damage
     }
 
-    if(isPlayerWins(player, boss)) {
+    if(isPlayerLoose(player, boss)) {
       var totalCost = weapon.cost + armorItem.cost;
 
       if(totalCost === WRONG_MIN_COST) {
@@ -151,7 +164,7 @@ shop.weapons.forEach(function (weapon) {
       ringsCost += ring.cost;
     })
 
-    if(isPlayerWins(player, boss)) {
+    if(isPlayerLoose(player, boss)) {
       var totalCost = weapon.cost + ringsCost;
 
       if(totalCost === WRONG_MIN_COST) {
@@ -181,7 +194,7 @@ shop.weapons.forEach(function (weapon) {
         ringsCost += ring.cost;
       })
 
-      if(isPlayerWins(player, boss)) {
+      if(isPlayerLoose(player, boss)) {
         var totalCost = weapon.cost + ringsCost + armorItem.cost;
 
         if(totalCost === WRONG_MIN_COST) {
@@ -200,4 +213,6 @@ costs = costs.sort(function (a, b) {
   return a - b;
 })
 
-console.log(costs[0]);
+console.log(costs);
+
+// 213 too high
