@@ -249,9 +249,7 @@ while(pendingPlays.length > 0) {
     winningPlays.push(currentPlay);
     // console.log("win: " + currentPlay);
     var mana = countMana(currentPlay);
-    if(mana < 1216) {
-      console.log(countMana(currentPlay));
-    }
+    console.log(countMana(currentPlay));
   } else if (currentPlayState.status === "lost") {
     gameStates[currentPlay] = deepClone(currentPlayState);
     // console.log("lost: " + currentPlay);
