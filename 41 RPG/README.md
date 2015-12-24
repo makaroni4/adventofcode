@@ -43,3 +43,5 @@ The player deals 5-2 = 3 damage; the boss goes down to 0 hit points.
 In this scenario, the player wins! (Barely.)
 
 You have 100 hit points. The boss's actual stats are in your puzzle input. What is the least amount of gold you can spend and still win the fight?
+
+Answer: 121
