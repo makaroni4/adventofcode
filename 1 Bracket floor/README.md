@@ -16,3 +16,5 @@ To what floor do the instructions take Santa?
 Your puzzle answer was 280.
 
 The first half of this puzzle is complete! It provides one gold star: *
+
+Answer: 280
