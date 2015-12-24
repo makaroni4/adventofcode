@@ -221,6 +221,7 @@ var numberOfIteration = 0;
 // var spellsNames = ["magic_missile", "drain", "shield", "poison", "recharge"];
 // pendingPlays = ["4", "42", "421", "4213", "42130"]
 // pendingPlays = ["3", "30"]
+var timeStart = new Date().getTime() / 1000;
 
 while(pendingPlays.length > 0) {
   numberOfIteration += 1;
@@ -249,14 +250,15 @@ while(pendingPlays.length > 0) {
     winningPlays.push(currentPlay);
     // console.log("win: " + currentPlay);
     var mana = countMana(currentPlay);
-    console.log(countMana(currentPlay));
+    // console.log(countMana(currentPlay));
   } else if (currentPlayState.status === "lost") {
     gameStates[currentPlay] = deepClone(currentPlayState);
     // console.log("lost: " + currentPlay);
   }
 
-  if(numberOfIteration % 1000 === 0) {
-    // console.log(numberOfIteration);
+  if(numberOfIteration % 100000 === 0) {
+    var timestamp = Math.round((new Date().getTime() / 1000 - timeStart) / 60, 0);
+    console.log("iterations: " + numberOfIteration + ", winning: " + winningPlays.length + ", time: " + timestamp);
   }
 }
 
@@ -267,6 +269,8 @@ var winningManaSpents = winningPlays.map(function (play) {
 })
 
 // console.log(pendingPlays)
+console.log(numberOfIteration.length)
+console.log(winningManaSpents.length)
 console.log(winningManaSpents[0]);
 
 function printPlay(play) {
